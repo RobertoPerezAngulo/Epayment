@@ -1,0 +1,58 @@
+﻿[
+  {
+    "IdEmpresa": "36",
+    "Nombre": "FURIA MOTORS MEXICO, S.A. DE C.V.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "iTUypkqgnmHugXw7MH/Opv2mmuNfiGe7ZZHSfxWBEWXsSBNV69KBhsAjgYELrIRD", 
+      "LlaveOpenPayPublica": "7lLkEgr0VQM4t8uar/T/VNp84f2XMZhpGuGJQgku0hbT48Q3qKMVV6HlJP4OHA/7",
+      "IdComercioOpenPay": "MQK/hw6wq5e3buP53V3XOZH1sLEd6xet/AekAxgYu8E=", 
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "5vGz:pTikSB9DoM",
+      "PaswordEcommerce": "iD,Sk3NQdI,6BZt",
+      "UserAffiPay": "aramirez@grupoautofin.com"
+    }
+  },
+  {
+    "IdEmpresa": "12",
+    "Nombre": "FURIA MOTORS MONTERREY, S.A. DE C.V.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "r7GFFHCEYuSV3lnSQ8UYPsU5nBvgQ66OMRYPCfn6IJNV/imwPRn8W7V0D0n83Mq0",
+      "LlaveOpenPayPublica": "h8SI22lT4sK9RBIgQKwh1PtpTu3e7sYy5KzAfhKkfsZC0f4/cgfM+s9dEFCwFWeM",
+      "IdComercioOpenPay": "eNgY4pkTyehi+i9ITxBSYhTjiO2TDILoMt7QuINA7KQ=",
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "SH5UG4:pw",
+      "PaswordEcommerce": "Wdrq5fr+p",
+      "UserAffiPay": "cuentasporpagar.ias@grupoautofin.com"
+    }
+  },
+  {
+    "IdEmpresa": "35",
+    "Nombre": "CRESTA FURIA ACAPULCO, S.A. DE C.V.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "Y1TuuHRtj29XKDgj0Hd7K/sZxrsFjh0tbNk1F1UNTAWUMtGCkUXwmvYv93kviDLD",
+      "LlaveOpenPayPublica": "kR5/Y81Em8ZHZKDweq3YZSgN7CooT6aFtYvN44CA5YoWLWXhHBt0mbnZ2UnjBoao",
+      "IdComercioOpenPay": "MYDDgoDAX5NugAr6izAneMlB44cZvWyA5RnWBexeVIA=",
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "",
+      "PaswordEcommerce": "",
+      "UserAffiPay": ""
+    }
+  },
+  {
+    "IdEmpresa": "558",
+    "Nombre": "FESTIN DEL GRUPO AUTOFIN, S.A DE C.V.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "", 
+      "LlaveOpenPayPublica": "",
+      "IdComercioOpenPay": "", 
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "",
+      "PaswordEcommerce": "-cP2sv21b9Na8YI",
+      "UserAffiPay": "aramirez@grupoautofin.com"
+    }
+  }
+]

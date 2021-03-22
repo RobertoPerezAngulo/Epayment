@@ -1,0 +1,86 @@
+﻿[
+  {
+    "IdEmpresa": "197",
+    "Nombre": "DVA LOGISTICA INTEGRAL CORPORATIVA, S.A. DE C.V.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "81Rcud6Lsid9YagTuVlq2HErZcd38/djhqe8oRpJyAR1Y5+LMZ1DnaKXAF9c7ffg",
+      "LlaveOpenPayPublica": "",
+      "IdComercioOpenPay": "BTVqhBAWGu1kizICYkDD+ZufDGZh6eH/Ume2HGVrDgQ=",
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "5vGz:pTikSB9DoM",
+      "PaswordEcommerce": "iD,Sk3NQdI,6BZt",
+      "UserAffiPay": "aramirez@grupoautofin.com"
+    }
+  },
+  {
+    "IdEmpresa": "36",
+    "Nombre": "DVA LOGISTICA INTEGRAL CORPORATIVA, S.A. DE C.V.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "81Rcud6Lsid9YagTuVlq2HErZcd38/djhqe8oRpJyAR1Y5+LMZ1DnaKXAF9c7ffg",
+      "LlaveOpenPayPublica": "",
+      "IdComercioOpenPay": "BTVqhBAWGu1kizICYkDD+ZufDGZh6eH/Ume2HGVrDgQ=",
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "5vGz:pTikSB9DoM",
+      "PaswordEcommerce": "iD,Sk3NQdI,6BZt",
+      "UserAffiPay": "aramirez@grupoautofin.com"
+    }
+  },
+  {
+    "IdEmpresa": "42",
+    "Nombre": "IMPERIO AUTOMOTRIZ DEL SUR, S.A. DE C.V.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "",
+      "LlaveOpenPayPublica": "",
+      "IdComercioOpenPay": "",
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "SH5UG4:pw",
+      "PaswordEcommerce": "Wdrq5fr+p",
+      "UserAffiPay": "cuentasporpagar.ias@grupoautofin.com"
+    }
+  },
+  {
+    "IdEmpresa": "35",
+    "Nombre": "DVA LOGISTICA INTEGRAL CORPORATIVA, S.A. DE C.V.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "81Rcud6Lsid9YagTuVlq2HErZcd38/djhqe8oRpJyAR1Y5+LMZ1DnaKXAF9c7ffg",
+      "LlaveOpenPayPublica": "",
+      "IdComercioOpenPay": "BTVqhBAWGu1kizICYkDD+ZufDGZh6eH/Ume2HGVrDgQ=",
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "5vGz:pTikSB9DoM",
+      "PaswordEcommerce": "iD,Sk3NQdI,6BZt",
+      "UserAffiPay": "aramirez@grupoautofin.com"
+    }
+  },
+  {
+    "IdEmpresa": "1",
+    "Nombre": "AUTOFINANCIAMIENTO MEXICO SA DE CV.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "",
+      "LlaveOpenPayPublica": "",
+      "IdComercioOpenPay": "",
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "",
+      "PaswordEcommerce": "",
+      "UserAffiPay": ""
+    }
+  },
+  {
+    "IdEmpresa": "12",
+    "Nombre": "DVA LOGISTICA INTEGRAL CORPORATIVA, S.A. DE C.V.",
+    "OpenPay": {
+      "LlaveOPenPayPrivada": "81Rcud6Lsid9YagTuVlq2HErZcd38/djhqe8oRpJyAR1Y5+LMZ1DnaKXAF9c7ffg",
+      "LlaveOpenPayPublica": "",
+      "IdComercioOpenPay": "BTVqhBAWGu1kizICYkDD+ZufDGZh6eH/Ume2HGVrDgQ=",
+    },
+    "AffiPay": {
+      "PaswordAffiPay": "5vGz:pTikSB9DoM",
+      "PaswordEcommerce": "iD,Sk3NQdI,6BZt",
+      "UserAffiPay": "aramirez@grupoautofin.com"
+    }
+  }
+]

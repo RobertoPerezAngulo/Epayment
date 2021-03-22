@@ -1,0 +1,16 @@
+﻿[
+  {
+    "IdEmpresa": "197",
+    "Nombre": "DVA LOGISTICA INTEGRAL CORPORATIVA, S.A. DE C.V.",
+    "LlaveOPenPayPrivada": "sk_d57f178a358a4c629dc953335ab6eb83",
+    "LlaveOpenPayPublica": "",
+    "IdComercio":  "m1xab198kga2xrsv18j6"
+  },
+  {
+    "IdEmpresa": "1",
+    "Nombre": "AUTOFINANCIAMIENTO MEXICO SA DE CV.",
+    "LlaveOPenPayPrivada": "sk_d57f178a358a4c629dc953335ab6eb83",
+    "LlaveOpenPayPublica": "",
+    "IdComercio":  "m1xab198kga2xrsv18j6"
+  }
+]

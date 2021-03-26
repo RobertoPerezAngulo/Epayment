@@ -36,7 +36,7 @@ namespace wsApiEPayment.Classes.Affipay
         public TokenAutorizado ObtenerToken(int aIdEmpresa)
         {
             TokenAutorizado token = new TokenAutorizado();
-            string nombreArchivo = "TokenAffiPay.json";
+            string nombreArchivo = $"TokenAffiPay{aIdEmpresa}.json";
 
             try
             {
@@ -58,7 +58,7 @@ namespace wsApiEPayment.Classes.Affipay
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }

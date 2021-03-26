@@ -141,7 +141,6 @@ namespace wsApiEPayment.Services
                     };
 
                     strSqlSeg = "";
-                    //strSqlSeg = "UPDATE PRODCAJA.CAEPAELE SET FSCAREJSON ='" + Newtonsoft.Json.JsonConvert.SerializeObject(respuestaVenta) + "'" + ", FSCADESCRI = '" + respuestaVenta.DatosAprobacion.Descripcion + "'" + "," + "FSCASPJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(sale) + "'" + "," + "FSCARPJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(responseSale) + "' WHERE FICAIDPAGE =" + respuestaVenta.DatosAprobacion.IdPagoElectronico;
                     strSqlSeg = "UPDATE PRODCAJA.CAEPAELE SET " + "FSCASOJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(venta) + "'," + "FSCAREJSON ='" + Newtonsoft.Json.JsonConvert.SerializeObject(respuestaVenta) + "'" + ", FSCADESCRI = '" + respuestaVenta.DatosAprobacion.Descripcion + "'" + "," + "FSCASPJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(sale) + "'" + "," + "FSCARPJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(responseSale) + "' WHERE FICAIDPAGE =" + respuestaVenta.DatosAprobacion.IdPagoElectronico;
                     if (!autorizacion.SQLSaveUpdate(ref dbCnx, strSqlSeg))
                         throw new System.ArgumentException("Hubo error al intentar guardar los datos");
@@ -153,6 +152,7 @@ namespace wsApiEPayment.Services
                 else
                 {
                     ResponseSaleNoAproved responseSaleNoAproved = deserial.Deserialize<ResponseSaleNoAproved>(response);
+                    responseSaleNoAproved.error.description = responseSaleNoAproved.error.description.Replace("'", null);
 
                     string strSqlSeg = "";
                     strSqlSeg = "SELECT FICAIDPAGE FROM NEW TABLE (";

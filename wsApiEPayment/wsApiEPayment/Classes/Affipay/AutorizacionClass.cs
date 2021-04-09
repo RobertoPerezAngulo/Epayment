@@ -47,7 +47,7 @@ namespace wsApiEPayment.Classes.Affipay
                     token = JsonConvert.DeserializeObject<TokenAutorizado>(strJSON);
                 }
 
-                if (Convert.ToDateTime(token.Fecha).AddHours(3) >= DateTime.Now)
+                if (Convert.ToDateTime(token.Fecha).AddHours(3) >= DateTime.Now && !string.IsNullOrEmpty(token.access_token))
                 {
 
                 }
@@ -81,21 +81,6 @@ namespace wsApiEPayment.Classes.Affipay
                 dbCnx.CerrarConexion();
                 return false;
             }
-
-            //try
-            //{
-            //    DVADB.DB2 dbCnx = new DVADB.DB2();
-            //    dbCnx.AbrirConexion();
-            //    dbCnx.BeginTransaccion();
-            //    dbCnx.SetQuery(Sentencia);
-            //    dbCnx.CommitTransaccion();
-            //    dbCnx.CerrarConexion();
-            //    return true;
-            //}
-            //catch (Exception)
-            //{
-            //    return false;
-            //}
         }
 
         public long SQLQuery(ref DVADB.DB2 conexion, string sentencia)
@@ -109,25 +94,8 @@ namespace wsApiEPayment.Classes.Affipay
             }
             catch (Exception)
             {
-                dbCnx.RollbackTransaccion();
-                dbCnx.CerrarConexion();
                 return 0;
             }
-
-
-            //int a = 0;
-            //try
-            //{
-            //    DVADB.DB2 dbCnx = new DVADB.DB2();
-            //    string strSql = "";
-            //    strSql = "SELECT coalesce(MAX(FICAIDPAGE),0) ID FROM PRODCAJA.CAEPAELE";
-            //    a = Convert.ToInt32(dbCnx.GetDataSet(strSql).Tables[0].Rows[0]["ID"].ToString());
-            //    return a;
-            //}
-            //catch (Exception)
-            //{
-            //    return a;
-            //}
         }
 
 
@@ -145,6 +113,7 @@ namespace wsApiEPayment.Classes.Affipay
                 request.AddParameter("grant_type", strTipo);
                 request.AddParameter("username", obj.AffiPay.UserAffiPay);
                 request.AddParameter("password", obj.AffiPay.PaswordEcommerce);
+                System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
                 IRestResponse response = client.Execute(request);
                 RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
                 token = deserial.Deserialize<TokenAutorizado>(response);

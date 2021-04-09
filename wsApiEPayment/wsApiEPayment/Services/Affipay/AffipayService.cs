@@ -30,6 +30,8 @@ namespace wsApiEPayment.Services
         {
             Respuesta respuesta;
             DVADB.DB2 dbCnx = new DVADB.DB2();
+            AutorizacionClass autorizacion = new AutorizacionClass();
+            Sale sale = new Sale();
             dbCnx.AbrirConexion();
             dbCnx.BeginTransaccion();
 
@@ -38,14 +40,10 @@ namespace wsApiEPayment.Services
                 respuesta = new Respuesta();
 
                 #region Token
-                AutorizacionClass autorizacion = new AutorizacionClass();
                 TokenAutorizado token = autorizacion.ObtenerToken(aIdEmpresa);
-                //TokenAutorizado token = new TokenAutorizado();
-                //strAuthorizationToken = strAuthorizationToken + token.access_token;
                 #endregion
-
                 #region Venta
-                Sale sale = new Sale()
+                sale = new Sale()
                 {
                     amount = venta.Cantidad
                              ,
@@ -96,16 +94,19 @@ namespace wsApiEPayment.Services
                 request.AddHeader("Authorization", token.token_type + " " +token.access_token);
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("application/json", JsonConvert.SerializeObject(sale), ParameterType.RequestBody);
+                System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
                 IRestResponse response = client.Execute(request);
+                if (!response.StatusCode.GetHashCode().Equals(200))
+                    throw new Exception(response.ErrorMessage);
                 RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
                 ResponseSale responseSale = deserial.Deserialize<ResponseSale>(response);
-
+                #region RespuestaAffipay
                 if (Convert.ToBoolean(responseSale.status))
                 {
                     string strSqlSeg = "";
                     strSqlSeg = "SELECT FICAIDPAGE FROM NEW TABLE (";
                     strSqlSeg = strSqlSeg + "INSERT INTO  PRODCAJA.CAEPAELE ";
-                    strSqlSeg = strSqlSeg + "VALUES (" + aIdEmpresa + "," + "(SELECT coalesce(MAX(FICAIDPAGE),0)+1 ID FROM PRODCAJA.CAEPAELE)"  + "," + "''" + ",'" + "" + "','" + "" + "'," + "''" + "," + "1" + ",";
+                    strSqlSeg = strSqlSeg + "VALUES (" + aIdEmpresa + "," + "(SELECT coalesce(MAX(FICAIDPAGE),0)+1 ID FROM PRODCAJA.CAEPAELE)" + "," + "''" + ",'" + "" + "','" + "" + "'," + "''" + "," + "1" + ",";
                     strSqlSeg = strSqlSeg + "1" + "," + "2" + "," + "'" + responseSale.dataResponse.description + "'" + "," + "1" + "," + "''" + "," + "CURRENT_DATE" + "," + "CURRENT_TIME" + "," + "'APPS'" + "," + "''" + "," + "CURRENT_DATE" + "," + "CURRENT_TIME" + "," + "'0')";
                     strSqlSeg = strSqlSeg + ")";
 
@@ -148,7 +149,7 @@ namespace wsApiEPayment.Services
                     dbCnx.CommitTransaccion();
                     dbCnx.CerrarConexion();
                     respuesta = respuestaVenta;
-                 }
+                }
                 else
                 {
                     ResponseSaleNoAproved responseSaleNoAproved = deserial.Deserialize<ResponseSaleNoAproved>(response);
@@ -168,13 +169,13 @@ namespace wsApiEPayment.Services
                         SolicitudId = responseSaleNoAproved.requestId,
                         Fecha = responseSaleNoAproved.date,
                         Hora = responseSaleNoAproved.time,
-                        error = new ErrorNoAprobado() { httpStatusCode = responseSaleNoAproved.error.httpStatusCode, code = responseSaleNoAproved.error.code, description = responseSaleNoAproved.error.description , IdPagoElectronico = autorizacion.SQLQuery(ref dbCnx, strSqlSeg) }
+                        error = new ErrorNoAprobado() { httpStatusCode = responseSaleNoAproved.error.httpStatusCode, code = responseSaleNoAproved.error.code, description = responseSaleNoAproved.error.description, IdPagoElectronico = autorizacion.SQLQuery(ref dbCnx, strSqlSeg) }
                     };
 
                     strSqlSeg = "";
 
                     strSqlSeg = "UPDATE PRODCAJA.CAEPAELE SET " + "FSCASOJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(venta) + "'," + "FSCAREJSON ='" + Newtonsoft.Json.JsonConvert.SerializeObject(respuestaNoAprobada) + "'" + ", FSCADESCRI = '" + respuestaNoAprobada.error.description + "'" + "," + "FSCASPJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(sale) + "'" + "," + "FSCARPJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(responseSaleNoAproved) + "' WHERE FICAIDPAGE =" + respuestaNoAprobada.error.IdPagoElectronico;
-                    if (!autorizacion.SQLSaveUpdate(ref dbCnx,strSqlSeg))
+                    if (!autorizacion.SQLSaveUpdate(ref dbCnx, strSqlSeg))
                         throw new System.ArgumentException("Hubo error al intentar guardar los datos");
 
                     dbCnx.CommitTransaccion();
@@ -182,15 +183,32 @@ namespace wsApiEPayment.Services
                     respuesta = respuestaNoAprobada;
                 }
                 #endregion
-
-                //respuesta = respuestaError;
+                #endregion
             }
-            catch(Exception )
+            catch(Exception ex)
             {
-                respuesta = new RespuestaVenta();
+                string strSqlSeg = string.Empty;
+                strSqlSeg = "SELECT FICAIDPAGE FROM NEW TABLE (";
+                strSqlSeg = strSqlSeg + "INSERT INTO  PRODCAJA.CAEPAELE ";
+                strSqlSeg = strSqlSeg + "VALUES (" + aIdEmpresa + "," + "(SELECT coalesce(MAX(FICAIDPAGE),0)+1 ID FROM PRODCAJA.CAEPAELE)" + "," + "''" + "," + "''" + ",'" + "" + "'," + "''" + "," + "0" + ",";
+                strSqlSeg = strSqlSeg + "1" + "," + "2" + "," + "'" + ex.Message.ToString() + "'" + "," + "1" + "," + "''" + "," + "CURRENT_DATE" + "," + "CURRENT_TIME" + "," + "'APPS'" + "," + "''" + "," + "CURRENT_DATE" + "," + "CURRENT_TIME" + "," + "'0')";
+                strSqlSeg = strSqlSeg + ")";
+
+                RespuestaVentaNoAprobada respuestaNoAprobada = new RespuestaVentaNoAprobada()
+                {
+                    Estado = "False",
+                    SolicitudId = "",
+                    Fecha = DateTime.Now.ToString("dd/mm/yyy"),
+                    Hora = DateTime.Now.ToLocalTime().ToString("hh:mm tt"),
+                    error = new ErrorNoAprobado() { httpStatusCode = "False", code = "500", description = ex.Message.ToString(), IdPagoElectronico = autorizacion.SQLQuery(ref dbCnx, strSqlSeg) }
+                };
+
+                strSqlSeg = "UPDATE PRODCAJA.CAEPAELE SET " + "FSCASOJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(venta) + "'," + "FSCAREJSON ='" + Newtonsoft.Json.JsonConvert.SerializeObject(respuestaNoAprobada) + "'" + ", FSCADESCRI = '" + respuestaNoAprobada.error.description + "'" + "," + "FSCASPJSON = '" + Newtonsoft.Json.JsonConvert.SerializeObject(sale) + "'" + "," + "FSCARPJSON = '" + ex.Message.ToString() + "' WHERE FICAIDPAGE =" + respuestaNoAprobada.error.IdPagoElectronico;
+                dbCnx.SetQuery(strSqlSeg);
+                dbCnx.CommitTransaccion();
+                dbCnx.CerrarConexion();
+                respuesta = respuestaNoAprobada;
             }
-
-
             return respuesta;
         }
 
